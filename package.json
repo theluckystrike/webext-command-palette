@@ -1,0 +1,39 @@
+{
+    "name": "webext-command-palette",
+    "version": "0.1.0",
+    "description": "Command palette (Ctrl+K) for Chrome extensions — fuzzy search, keyboard navigation, action registry, and customizable themes. Zero dependencies.",
+    "author": "Zovo <hello@zovo.one>",
+    "license": "MIT",
+    "keywords": [
+        "chrome-extension",
+        "command-palette",
+        "ctrl-k",
+        "fuzzy-search",
+        "keyboard",
+        "manifest-v3",
+        "browser-extension",
+        "launcher",
+        "spotlight",
+        "quick-actions"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/theluckystrike/webext-command-palette.git"
+    },
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "files": [
+        "dist",
+        "README.md",
+        "LICENSE"
+    ],
+    "scripts": {
+        "build": "tsc",
+        "test": "jest",
+        "prepublishOnly": "npm run build"
+    },
+    "devDependencies": {
+        "@types/chrome": "^0.0.260",
+        "typescript": "^5.3.3"
+    }
+}
