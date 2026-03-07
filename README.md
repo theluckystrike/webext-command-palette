@@ -10,13 +10,13 @@ A Ctrl+K command palette for Chrome extensions with fuzzy search, keyboard navig
 ## Install
 
 ```bash
-npm install webext-command-palette
+npm install @theluckystrike/webext-command-palette
 ```
 
 ## Usage
 
 ```typescript
-import { CommandPalette } from 'webext-command-palette';
+import { CommandPalette } from '@theluckystrike/webext-command-palette';
 
 const palette = new CommandPalette('k');
 
@@ -115,7 +115,7 @@ Filter and sort items by fuzzy match quality.
 **Example:**
 
 ```typescript
-import { FuzzySearch } from 'webext-command-palette';
+import { FuzzySearch } from '@theluckystrike/webext-command-palette';
 
 const items = [
   { title: 'Open Settings', id: 1 },
