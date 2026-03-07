@@ -1,9 +1,9 @@
-# webext-command-palette
+[![CI](https://github.com/theluckystrike/webext-command-palette/actions/workflows/ci.yml/badge.svg)](https://github.com/theluckystrike/webext-command-palette/actions)
+[![npm](https://img.shields.io/npm/v/@theluckystrike/webext-command-palette)](https://www.npmjs.com/package/@theluckystrike/webext-command-palette)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue.svg)](https://www.typescriptlang.org/)
 
-[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![npm](https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white)](https://www.npmjs.com/package/webext-command-palette)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
-[![CI](https://github.com/theluckystrike/webext-command-palette/actions/workflows/ci.yml/badge.svg)](https://github.com/theluckystrike/webext-command-palette/actions/workflows/ci.yml)
+# webext-command-palette
 
 A Ctrl+K command palette for Chrome extensions with fuzzy search, keyboard navigation, and a chainable action registry. Zero dependencies. Works with Manifest V3.
 
@@ -143,4 +143,7 @@ npm test
 
 ## License
 
-MIT - Built by theluckystrike | [zovo.one](https://zovo.one)
+MIT
+
+---
+Built by [theluckystrike](https://github.com/theluckystrike) — [zovo.one](https://zovo.one)
