@@ -1,19 +1,19 @@
 # webext-command-palette
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![npm](https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white)](https://www.npmjs.com/package/webext-command-palette)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 [![CI](https://github.com/theluckystrike/webext-command-palette/actions/workflows/ci.yml/badge.svg)](https://github.com/theluckystrike/webext-command-palette/actions/workflows/ci.yml)
 
-A Ctrl+K command palette for Chrome extensions. Fuzzy search, keyboard navigation, styled modal overlay, and a chainable action registry. Zero dependencies. Works with Manifest V3.
+A Ctrl+K command palette for Chrome extensions with fuzzy search, keyboard navigation, and a chainable action registry. Zero dependencies. Works with Manifest V3.
 
+## Install
 
-INSTALL
-
-```
+```bash
 npm install webext-command-palette
 ```
 
-
-USAGE
+## Usage
 
 ```typescript
 import { CommandPalette } from 'webext-command-palette';
@@ -37,69 +37,103 @@ palette
   });
 ```
 
-The constructor accepts a hotkey character. By default it binds Ctrl+K (or Cmd+K on Mac) to toggle the palette. Pressing Escape closes it.
+Press `Ctrl+K` (or `Cmd+K` on Mac) to open the palette. Press `Escape` to close it.
 
+## API Reference
 
-API
+### `CommandPalette`
 
-CommandPalette
+The main class for creating and managing the command palette.
 
-`new CommandPalette(hotkey?: string)` creates a palette instance bound to the given hotkey (default `'k'`).
+#### Constructor
 
-Methods on the instance:
+```typescript
+new CommandPalette(hotkey?: string): CommandPalette
+```
 
-- `register(command)` adds a single command, returns `this` for chaining
-- `registerAll(commands)` adds an array of commands at once, returns `this`
-- `open()` opens the palette overlay
-- `close()` removes the overlay from the DOM
-- `toggle()` opens if closed, closes if open
+Creates a palette instance bound to the specified hotkey character. Default hotkey is `'k'`.
 
-PaletteCommand
+**Parameters:**
+- `hotkey` (optional) - The keyboard character to trigger the palette (default: `'k'`)
+
+#### Methods
+
+| Method | Signature | Description |
+|--------|-----------|-------------|
+| `register` | `(command: PaletteCommand): this` | Register a single command, returns `this` for chaining |
+| `registerAll` | `(commands: PaletteCommand[]): this` | Register multiple commands at once, returns `this` |
+| `open` | `(): void` | Programmatically open the palette overlay |
+| `close` | `(): void` | Remove the overlay from the DOM |
+| `toggle` | `(): void` | Toggle the palette open/closed state |
+
+### `PaletteCommand`
 
 Each command object has these fields:
 
-| Field       | Type         | Required |
-|-------------|-------------|----------|
-| id          | string      | yes      |
-| title       | string      | yes      |
-| action      | () => void  | yes      |
-| description | string      | no       |
-| icon        | string      | no       |
-| shortcut    | string      | no       |
-| category    | string      | no       |
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `id` | `string` | Yes | Unique identifier for the command |
+| `title` | `string` | Yes | Display title shown in the palette |
+| `action` | `() => void` | Yes | Callback executed when command is selected |
+| `description` | `string` | No | Optional description shown below the title |
+| `icon` | `string` | No | Emoji or icon displayed next to the title |
+| `shortcut` | `string` | No | Keyboard shortcut hint displayed |
+| `category` | `string` | No | Optional category for organization |
 
+### `FuzzySearch`
 
-FUZZY SEARCH
+Standalone fuzzy string matching utility exported for custom use.
 
-The library also exports `FuzzySearch` for standalone use.
+#### `FuzzySearch.score`
+
+```typescript
+static score(query: string, target: string): number
+```
+
+Score a query against a target string. Higher scores indicate better matches.
+
+**Scoring rules:**
+- Exact match: 100
+- Starts with query: 90
+- Contains query: 70
+- Character-by-character fuzzy match: scores based on consecutive hits
+- No match: 0
+
+#### `FuzzySearch.filter`
+
+```typescript
+static filter<T>(query: string, items: T[], getText: (item: T) => string): T[]
+```
+
+Filter and sort items by fuzzy match quality.
+
+**Parameters:**
+- `query` - The search query string
+- `items` - Array of items to filter
+- `getText` - Function to extract searchable text from each item
+
+**Example:**
 
 ```typescript
 import { FuzzySearch } from 'webext-command-palette';
 
-const score = FuzzySearch.score('set', 'Open Settings');
-// Returns a numeric score, higher means better match
+const items = [
+  { title: 'Open Settings', id: 1 },
+  { title: 'Export Data', id: 2 },
+  { title: 'Import File', id: 3 },
+];
 
 const results = FuzzySearch.filter('set', items, (item) => item.title);
-// Filters and sorts items by match quality
+// Returns items sorted by match quality
 ```
 
-Scoring rules:
+## Chrome Extension Guide
 
-- Exact match returns 100
-- Starts-with match returns 90
-- Substring match returns 70
-- Character-by-character fuzzy match scores based on consecutive hits
-- No match returns 0
+This library is designed for Chrome/Edge/Firefox extensions using Manifest V3. For guidance on building Chrome extensions, see the [Chrome Extension Documentation](https://developer.chrome.com/docs/extensions/mv3/).
 
+## Development
 
-HOW IT WORKS
-
-When `open()` is called, the palette injects a fixed-position overlay into the DOM with a search input and scrollable command list. Typing in the input filters commands by title and description. Clicking a command runs its action and closes the palette. Clicking outside the modal closes it.
-
-
-DEVELOPMENT
-
-```
+```bash
 git clone https://github.com/theluckystrike/webext-command-palette.git
 cd webext-command-palette
 npm install
@@ -107,9 +141,6 @@ npm run build
 npm test
 ```
 
+## License
 
-LICENSE
-
-MIT. See [LICENSE](LICENSE) for details.
-
-Built by [Zovo](https://zovo.one)
+MIT - Built by theluckystrike | [zovo.one](https://zovo.one)
