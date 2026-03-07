@@ -29,11 +29,14 @@
     ],
     "scripts": {
         "build": "tsc",
-        "test": "echo \"No tests configured\" && exit 0",
+        "test": "jest --passWithNoTests",
         "prepublishOnly": "npm run build"
     },
     "devDependencies": {
         "@types/chrome": "^0.0.260",
+        "@types/jest": "^30.0.0",
+        "jest": "^30.2.0",
+        "ts-jest": "^29.4.6",
         "typescript": "^5.3.3"
     }
 }
